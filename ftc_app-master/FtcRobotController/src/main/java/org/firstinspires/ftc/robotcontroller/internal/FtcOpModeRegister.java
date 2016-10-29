@@ -36,8 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import com.qualcomm.robotcore.eventloop.opmode.AnnotatedOpModeRegistrar;
 import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
-import org.firstinspires.ftc.robotcontroller.internal.OpModes.GruOp;
-import org.firstinspires.ftc.robotcontroller.internal.OpModes.VuforiaOp;
+
 
 
 /**
@@ -80,7 +79,6 @@ public class FtcOpModeRegister implements OpModeRegister {
         /**
          * Any manual OpMode class registrations should go here.
          */
-        manager.register("Two Wheel", GruOp.class);
-        //manager.register("Vuforia", VuforiaOp.class);
+
     }
 }

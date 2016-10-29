@@ -97,6 +97,9 @@ public class VuforiaOp9533 extends LinearOpMode {
 
     Hardware9533   robot           = new Hardware9533();              // Use a K9'shardware
 
+
+
+
     public static final String TAG = "Vuforia Sample";
 
     OpenGLMatrix lastLocation = null;
@@ -111,6 +114,7 @@ public class VuforiaOp9533 extends LinearOpMode {
 
     @Override public void runOpMode() throws InterruptedException {
 
+        robot.invertedDrive = true;
 
         robot.init(hardwareMap);
 //            left = hardwareMap.dcMotor.get("left");

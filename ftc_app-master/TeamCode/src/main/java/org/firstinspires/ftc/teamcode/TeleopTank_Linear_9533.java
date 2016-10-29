@@ -63,6 +63,8 @@ public class TeleopTank_Linear_9533 extends LinearOpMode {
     Hardware9533   robot           = new Hardware9533();              // Use a K9'shardware
 
 
+    private boolean currentButtonState = false;
+    private boolean previousButtonState = false;
 
     private void handleIntake(){
         if(gamepad2.right_bumper) {
@@ -117,13 +119,30 @@ public class TeleopTank_Linear_9533 extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            double left = robot.AccelerateMotor(robot.leftMotor, -gamepad1.left_stick_y);
-            double right = robot.AccelerateMotor(robot.rightMotor, -gamepad1.right_stick_y);
+            currentButtonState = gamepad1.right_bumper;
+
+            if(currentButtonState != previousButtonState) {
+                if(currentButtonState) {
+                    robot.invertedDrive = !robot.invertedDrive;
+                }
+                previousButtonState = currentButtonState;
+            }
+
+            if(robot.invertedDrive) {
+                telemetry.addData("DriveMode", "Reverse");
+            } else {
+                telemetry.addData("DriveMode", "Normal");
+            }
 
 
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
+
+            handleIntake();
+            handleElevator();
+            handleShooter();
+
+
+            robot.DriveRobot(-gamepad1.left_stick_y, -gamepad1.right_stick_y, telemetry);
+
             telemetry.update();
 
             // Pause for metronome tick.  40 mS each cycle = update 25 times a second.

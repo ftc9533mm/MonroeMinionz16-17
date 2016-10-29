@@ -2,10 +2,13 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import static java.lang.Math.abs;
 
@@ -31,7 +34,7 @@ public class Hardware9533
 {
 
     public final static double ACCEL_RATE = 0.2;
-
+    public boolean invertedDrive = false;
 
     /* Public OpMode members. */
     public DcMotor  leftMotor   = null;
@@ -127,6 +130,33 @@ public class Hardware9533
         period.reset();
     }
 
+
+    public void DriveRobot(double leftPower, double rightPower, Telemetry telemetry) {
+
+        double left = 0;
+        double right = 0;
+
+        if(this.invertedDrive) {
+
+            //reverse all the things
+            left = AccelerateMotor(this.rightMotor, -leftPower);
+            right = AccelerateMotor(this.leftMotor, -rightPower);
+
+        } else {
+
+            left = AccelerateMotor(this.leftMotor, leftPower);
+            right = AccelerateMotor(this.rightMotor, rightPower);
+
+        }
+
+
+
+        telemetry.addData("left",  "%.2f", left);
+        telemetry.addData("right", "%.2f", right);
+
+
+
+    }
 
     public double AccelerateMotor(DcMotor motor, double targetPower) {
         targetPower = Range.clip(targetPower, 0, 1);
