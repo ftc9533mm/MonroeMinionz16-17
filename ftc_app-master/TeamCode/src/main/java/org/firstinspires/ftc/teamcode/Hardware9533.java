@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import static java.lang.Math.abs;
 
@@ -128,6 +129,8 @@ public class Hardware9533
 
 
     public double AccelerateMotor(DcMotor motor, double targetPower) {
+        targetPower = Range.clip(targetPower, 0, 1);
+
         double power = this.accel(motor.getPower(), targetPower, ACCEL_RATE);
         motor.setPower(power);
         return  power;

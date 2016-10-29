@@ -76,7 +76,6 @@ public class TeleopTank_Linear_9533 extends LinearOpMode {
 
         }
     }
-
     private void handleElevator(){
         if(gamepad2.right_bumper) {
 
